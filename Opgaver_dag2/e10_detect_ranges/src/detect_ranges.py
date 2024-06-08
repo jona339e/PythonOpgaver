@@ -1,55 +1,41 @@
 #!/usr/bin/env python3
 
 def detect_ranges(Li):
+    # sort the list
     LSorted = sorted(Li)
     L = []
-    print(LSorted)
+    # print(LSorted)
 
-    startBuffer = LSorted[0]
-    endBuffer = LSorted[0]
 
-    for i in range(1, len(LSorted)):
+    # loop through the list and find the ranges and put them in a new list L as a tuple
+    # if the range is 1, then just add the number to the list
 
-        # find the ranges
-        # if [i] - [i-1] == 1, then it is inside a range
-        # if [i] - [i-1] != 1, then it is the end of the range and we can add a touple to L
-        # if startbuffer and endbuffer is the same it is not range and we add it to the list
+    i = 0
+    while i < len(LSorted):
+        if i == len(LSorted) - 1:
+            L.append(LSorted[i])
+            break
 
-        if i == len(LSorted)-1:
-            # if last iteration
-            # if startbuffer and endbuffer is the same it is not range and we add it to the list
-            # if not we add the last range to the list
-            endBuffer = LSorted[i]
-            if LSorted[i] - LSorted[i-1] != 1:
-                L.append(LSorted[i-1])
-                L.append(endBuffer)
-            elif startBuffer == endBuffer:
-                L.append(LSorted[i])
-            else:
-                L.append((startBuffer, endBuffer+1))
-                
-        elif LSorted[i] - LSorted[i-1] == 1:
-            endBuffer = LSorted[i]
+        if LSorted[i] + 1 == LSorted[i + 1]:
+            start = LSorted[i]
+            while i < len(LSorted) - 1 and LSorted[i] + 1 == LSorted[i + 1]:
+                i += 1
+            end = LSorted[i]
+            L.append((start, end+1))
 
         else:
-            if startBuffer == endBuffer:
-                L.append(startBuffer)
-
-            else:
-                L.append((startBuffer, endBuffer+1))
-
-            startBuffer = LSorted[i]
-            endBuffer = LSorted[i]
-        
-
+            L.append(LSorted[i])
+        i += 1
+    
 
     return L
 
 def main():
-    L = [4, 2, 0, -2, -4]
+    L = [88, 89, 90, 92, 93, 94, 95, 96, 97]
     result = detect_ranges(L)
-    # print(L)
+    print(L)
     print(result)
 
 if __name__ == "__main__":
     main()
+

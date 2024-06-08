@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
 def interleave(*lists):
+    L = []
+
+    for sublist in zip(*lists):
+        
+        for item in sublist:
+            L.append(item)
     
-    return [item for sublist in zip(*lists) for item in sublist]
+    return L
 
 
 def main():

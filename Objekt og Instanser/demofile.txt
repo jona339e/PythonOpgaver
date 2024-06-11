@@ -1,3 +1,1 @@
-John,Doe,Matematik
-Katja,Kaj,Dansk
-Bente,Bent,Samfundsfag
+Hans,Hansi,OOP

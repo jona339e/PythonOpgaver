@@ -1,1 +1,5 @@
 John,Johnson,Grundlæggende Programmering-OOP
+Lars,Petersen,Big Data
+Mette,Hansen,Grundlæggende Programmering
+Ole,Andersen,Big Data
+Peter,Nyborg,OOP-Python

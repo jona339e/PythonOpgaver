@@ -53,5 +53,3 @@ if __name__ == "__main__":
 
 
 
-# make a way to create subjects and store them in a file
-# make students

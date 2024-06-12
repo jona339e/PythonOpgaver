@@ -35,17 +35,12 @@ def filter_most_wanted(most_wanted):
 def main():
     filepath = "FBI Most Wanted/Del 1/most_wanted.csv"
     most_wanted = get_most_wanted_from_api()
-    # print(most_wanted)
     filtered_most_wanted = filter_most_wanted(most_wanted)
-
+    
     with open(filepath, "w", newline='') as file:
         writer = csv.DictWriter(file, fieldnames=["categories", "name", "aliases", "details"])
         writer.writeheader()
-        for item in filtered_most_wanted:
-            writer.writerow(item)
-    
-    
-
+        writer.writerows(filtered_most_wanted)
 
 
 if __name__ == "__main__":

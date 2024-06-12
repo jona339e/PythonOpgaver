@@ -3,6 +3,14 @@ import os
 import requests
 from missing_person import Missing_person
 from gang_member import Gang_member
+import threading
+import time
+from datetime import datetime, timedelta
+
+
+data = {}
+url = "https://api.fbi.gov/wanted/v1/list"
+filepath = "FBI Most Wanted/Del 2/most_wanted.json"
 
 
 def does_file_exist(filename):
@@ -68,6 +76,9 @@ def update_last_seen(data):
     print("Entry updated successfully!")
     print(f"Updated entry: {selected_person['fname']} {selected_person['lname']} - Last seen on {selected_person['last_seen']}")
 
+    # save to file
+    create_json_file(data, filepath)
+
 
 def update_gang_name(data):
     for index, gm in enumerate(data["gang_members"]):
@@ -90,11 +101,15 @@ def update_gang_name(data):
     print("Entry updated successfully!")
     print(f"Updated entry: {selected_person['fname']} {selected_person['lname']} - {selected_person['gang_name']}")
 
+    # save to file
+    create_json_file(data, filepath)
 
-def menu(data):
+
+def menu():
+    global data
     print("1. Show Missing Persons")
     print("2. Show Gang Members")
-    print("3. Exit")
+    print("3. Save & Exit")
 
     choice = input("Enter your choice: ")
 
@@ -110,14 +125,12 @@ def menu(data):
 
         case _:
             print("Invalid choice")
-            return False
-
-    return False
 
 
 def init():
-    url = "https://api.fbi.gov/wanted/v1/list"
-    filepath = "FBI Most Wanted/Del 2/most_wanted.json"
+    global data, filepath, url
+
+    # get most wanted from api
     most_wanted = get_most_wanted(url)
     if most_wanted is None:
         filtered_most_wanted = read_json_file(filepath)
@@ -128,6 +141,7 @@ def init():
     gang_members = []
     search_string = ["missing person", "Criminal Enterprise"]
 
+    # filter out missing persons and gang members and save those in their respective lists
     for item in filtered_most_wanted:
         if search_string[0].lower() in item["categories"][0].lower():
             mp = Missing_person(item["id"], item["fname"], item["lname"])
@@ -136,14 +150,7 @@ def init():
             gm = Gang_member(item["id"], item["fname"], item["lname"])
             gang_members.append(gm)
     
-    return missing_persons, gang_members
-
-
-def main():
-    missing_persons, gang_members = init()
-
     # if file exist, read from file
-    filepath = "FBI Most Wanted/Del 2/most_wanted.json"
     if does_file_exist(filepath):
         data = read_json_file(filepath)
         for i in range(len(missing_persons)):
@@ -155,7 +162,7 @@ def main():
             if gang_members[i].id not in [gm["id"] for gm in data["gang_members"]]:
                 data["gang_members"].append(gang_members[i].to_dict())
     else:
-        #create new file with data
+        # create new file with data
         data = {
             "missing_persons": [mp.to_dict() for mp in missing_persons],
             "gang_members": [gm.to_dict() for gm in gang_members]
@@ -163,12 +170,34 @@ def main():
 
         create_json_file(data, filepath)
 
+
+def daily_thread():
+    global data, filepath
     while True:
-        if menu(data):
+        now = datetime.now()
+
+        next_run = now + timedelta(days=1)
+
+        sleep_time = (next_run - now).total_seconds()
+        # change sleep_time to 10 seconds for testing - runs every 10 seconds
+        time.sleep(sleep_time)
+
+        init()
+        # save to file
+        create_json_file(data, filepath)
+
+
+def main():
+    global data, filepath
+    thread = threading.Thread(target=daily_thread)
+    thread.daemon = True
+    thread.start()
+    init()
+
+    while True:
+        if menu():
             break
-        
-    # on exist overwrite file with new content
-    create_json_file(data, filepath)
+    # could also use quit() inside the menu
 
 
 if __name__ == "__main__":

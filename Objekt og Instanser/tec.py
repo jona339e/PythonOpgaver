@@ -5,6 +5,7 @@ class TEC:
         self.filename = filename
         self.teachers = []
         self.subjects = ["Grundlæggende Programmering", "OOP", "Python", "Big Data", "Gui Programmering"]
+        # populate teachers list with teachers from file
         try:
             with open(filename) as f:
                 # read the content of the file

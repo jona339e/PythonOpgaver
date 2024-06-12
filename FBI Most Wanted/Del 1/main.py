@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 url = "https://api.fbi.gov/wanted/v1/list"
 
@@ -37,9 +38,11 @@ def main():
     # print(most_wanted)
     filtered_most_wanted = filter_most_wanted(most_wanted)
 
-    with open(filepath, "w") as file:
+    with open(filepath, "w", newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=["categories", "name", "aliases", "details"])
+        writer.writeheader()
         for item in filtered_most_wanted:
-            file.write(f"{item['categories']}, {item['name']}, {item['aliases']}, {item['details']}\n")
+            writer.writerow(item)
     
     
 

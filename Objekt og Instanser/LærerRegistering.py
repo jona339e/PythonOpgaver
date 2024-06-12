@@ -8,7 +8,7 @@ def switch_loop():
     # [3] vis liste af alle lærere
     # [4] Gem of Afslut
 
-    filepath = "Objekt og Instanser/demofile.txt"
+    filepath = "Objekt og Instanser/teachers.txt"
     tec = TEC(filepath)
 
     while True:
@@ -51,3 +51,7 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+# make a way to create subjects and store them in a file
+# make students

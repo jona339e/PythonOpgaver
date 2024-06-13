@@ -62,7 +62,12 @@ def update_last_seen(data):
     print()
 
     try:
-        person_index = int(input("Enter the number of the person you want to modify last seen date for: ")) - 1
+        print("Enter 'q' to go back")
+        choice = input("Enter the number of the person you want to modify last seen date for: ")
+        print()
+        if choice.lower() == "q":
+            return False
+        person_index = int(choice) - 1
         if person_index < 0 or person_index >= len(data["missing_persons"]):
             raise IndexError
     except:
@@ -75,7 +80,7 @@ def update_last_seen(data):
     selected_person["last_seen"] = input("Enter new last seen date: ")
     print("Entry updated successfully!")
     print(f"Updated entry: {selected_person['fname']} {selected_person['lname']} - Last seen on {selected_person['last_seen']}")
-
+    print()
     # save to file
     create_json_file(data, filepath)
 
@@ -87,7 +92,12 @@ def update_gang_name(data):
     print()
 
     try:
-        person_index = int(input("Enter the number of the person you want to modify gang name for: ")) - 1
+        print("Enter 'q' to go back")
+        choice = input("Enter the number of the person you want to modify gang name for: ")
+        print()
+        if choice.lower() == "q":
+            return False
+        person_index = int(choice) - 1
         if person_index < 0 or person_index >= len(data["gang_members"]):
             raise IndexError
     except:
@@ -100,7 +110,7 @@ def update_gang_name(data):
     selected_person["gang_name"] = input("Enter new gang name: ")
     print("Entry updated successfully!")
     print(f"Updated entry: {selected_person['fname']} {selected_person['lname']} - {selected_person['gang_name']}")
-
+    print()
     # save to file
     create_json_file(data, filepath)
 
@@ -109,7 +119,8 @@ def menu():
     global data
     print("1. Show Missing Persons")
     print("2. Show Gang Members")
-    print("3. Save & Exit")
+    print("3. Exit")
+    print()
 
     choice = input("Enter your choice: ")
 

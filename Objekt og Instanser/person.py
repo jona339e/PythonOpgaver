@@ -15,7 +15,6 @@ class Person(IRequiredPersonInfo):
     def fname(self, value):
         self._fname = value
 
-
     @property
     def lname(self):
         return self._lname

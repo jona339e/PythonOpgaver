@@ -16,13 +16,13 @@
             "id": "1584feee758e4cd39136171ef1c007f9",
             "fname": "BRYAN",
             "lname": "MATTHEW MCGEHRIN",
-            "last_seen": "00-00-0000"
+            "last_seen": "45151251"
         },
         {
             "id": "b241a3d5007b4abcba4a085ea95831a1",
             "fname": "MITCHELL",
             "lname": "TODD HEIN",
-            "last_seen": "00-00-0000"
+            "last_seen": "12-12-1221"
         },
         {
             "id": "fca89f1133a74259b4a0f944cd238343",
@@ -66,7 +66,19 @@
             "id": "cd626d1aedfd4acc816a1a3a418b1472",
             "fname": "EDWIN",
             "lname": "ERNESTO CEDILLOS",
-            "gang_name": "Gucchi Gang"
+            "gang_name": "GANG GANG"
+        },
+        {
+            "id": "afda85d4f2024c48b393b65c8eb0d564",
+            "fname": "COLLIN",
+            "lname": "POSEY",
+            "gang_name": "Unknown"
+        },
+        {
+            "id": "8ccf4b21838243ebaf6a87d0afe1e3cc",
+            "fname": "CESAR",
+            "lname": "HUMBERTO LOPEZ",
+            "gang_name": "Unknown"
         }
     ]
 }
